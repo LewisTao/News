@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Create author
+10.times do
+	Author.create(
+		name: FFaker::Name.name,
+		email: FFaker::Internet.email
+		)
+end
