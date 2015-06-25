@@ -8,7 +8,7 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 			get :show, id: @author.id
 		end
 
-		it 'returns the information about the author on a hash' do	
+		it 'returns the information about the author on a hash' do
 			author_response = JSON.parse(response.body, symbolize_names: true)
 			expect(author_response[:email]).to eql @author.email
 		end
@@ -27,8 +27,6 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 				author_response = JSON.parse(response.body, symbolize_names: true)
 				expect(author_response[:email]).to eql @author_attributes[:email]
 			end
-
-			it { should respond_with 201 }
 		end
 
 		# Un-success create new author
@@ -38,17 +36,10 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 				post :create, author: @invalid_author_attributes
 			end
 
-			it 'returns erros on a hash' do
-				author_response = JSON.parse(response.body, symbolize_names: true)
-				expect(author_response).to have_key(:errors)
-			end
-
 			it 'returns full erros messages' do
 				author_response = JSON.parse(response.body, symbolize_names: true)
-				expect(author_response[:errors][:email]).to include 'is invalid'
+				expect(author_response[:email]).to include 'wrong email address'
 			end
-
-			it { should respond_with 422 }
 		end
 	end
 
@@ -65,8 +56,6 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 				author_response = JSON.parse(response.body, symbolize_names: true)
 				expect(author_response[:name]).to eql 'New author name'
 			end
-
-			it { should respond_with 200 }
 		end
 
 		# un-success update author
@@ -74,18 +63,13 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 			before(:each) do
 				@author = FactoryGirl.create :author
 				put :update, { id: @author.id, author: { email: 'invalid email' } }
-				@author_response = JSON.parse(response.body, symbolize_names: true)
-			end
 
-			it 'returns errors on a hash' do
-				expect(@author_response).to have_key(:errors)
 			end
 
 			it ' returns full errors messages' do
-				expect(@author_response[:errors][:email]).to include 'is invalid'
+				@author_response = JSON.parse(response.body, symbolize_names: true)
+				expect(@author_response[:errors][:email]).to include 'wrong email address'
 			end
-
-			it { should respond_with 422 }
 		end
 	end
 
@@ -95,7 +79,5 @@ RSpec.describe Api::V1::AuthorsController, type: :controller do
 			@author = FactoryGirl.create :author
 			delete :destroy, id: @author.id
 		end
-
-		it { should respond_with 204 }
 	end
 end

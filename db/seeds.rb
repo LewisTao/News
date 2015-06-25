@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Create author
-10.times do
+5.times do
 	Author.create(
 		name: FFaker::Name.name,
 		email: FFaker::Internet.email

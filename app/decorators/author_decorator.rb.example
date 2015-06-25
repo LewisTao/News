@@ -1,0 +1,13 @@
+class AuthorDecorator < Draper::Base
+  def api_info
+    as_json(
+      only: [:id, :name, :email],
+      methods: [:articles_count]
+    )
+  end
+
+  def articles_count
+    # ... do something
+    10
+  end
+end
