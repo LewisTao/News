@@ -3,7 +3,7 @@ class AuthorDecorator < Draper::Decorator
 
   def author_info
     as_json(
-      only: [:id, :email, :name]
+      only: [:email, :name]
     )
   end
 end
