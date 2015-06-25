@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# Errors notification & errors handling
+gem "binding_of_caller", group: :development
+gem "better_errors", group: :development
+gem 'exception_notification'
+# Action mailer for development test
+gem 'letter_opener', group: :development
 # Decorator
 gem 'draper', '~> 2.1.0'
 
